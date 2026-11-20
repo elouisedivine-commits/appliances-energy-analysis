@@ -7,3 +7,10 @@ Dataset: Appliances Energy Prediction (UCI Machine Learning Repository), https:/
 - energydata_complete.csv: original data
 - energydata_clean.csv: cleaned data
 - cleaning.ipynb: data cleaning and exploration
+
+## Summary of cleaning decisions
+- Converted the 'date' from text to datetime.
+- Created 'hour' and 'day_night'. 
+- Dropped 'rv1' and 'rv2' (those random columns with no real meaning)
+- No missing Values or duplicate rows were found, so nothing was removed.
+- Kept all the outliers (2,138 readings above 175Wh, 10.8%) because they look like real high-use events.
