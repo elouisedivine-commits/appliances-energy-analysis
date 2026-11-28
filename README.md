@@ -1,78 +1,144 @@
-# What Drives Appliance Energy Use in a Home?
 
-Final project for Introduction to Data Analytics.
-Dataset: Appliances Energy Prediction (UCI Machine Learning Repository), https://doi.org/10.24432/C5VC8G
+
+# Household Appliance Energy Consumption Analysis
+
+## Project Overview
+
+This project analyzes household appliance energy consumption using Python and data analytics techniques.
+
+The purpose is to understand household electricity usage patterns, identify factors associated with energy consumption, and determine whether indoor conditions, outdoor weather, and time of day can help predict appliance consumption.
+
+## Research Questions
+
+1. Is household appliance energy consumption different during the day and night?
+2. Which variables are most associated with household appliance energy consumption?
+3. Can indoor conditions, outdoor weather, and time of day predict appliance consumption?
+
+## Dataset Description
+
+The dataset contains household appliance energy consumption readings, indoor environmental measurements, and outdoor weather conditions.
+
+Important variables include:
+- Appliances
+- Date
+- Temperature (T1-T9)
+- Relative Humidity (RH_1-RH_9)
+- Outdoor Temperature (T_out)
+- Outdoor Humidity (RH_out)
+- Windspeed
+- Visibility
+- Atmospheric Pressure
+- Lighting (lights)
+
+Dataset Source: [Insert original dataset source and URL]
+
+## Tools and Technologies
+
+- Python
+- Jupyter Notebook
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- SciPy
+- Scikit-learn
+
+## Data Cleaning and Preparation
+
+The following procedures were performed:
+
+1. Converted date values into datetime format.
+2. Checked missing values.
+3. Checked duplicate records.
+4. Created an hour variable.
+5. Created a Day/Night classification variable.
+6. Removed unnecessary random variables (rv1 and rv2).
+7. Examined outliers using the IQR method.
+
+## Exploratory Data Analysis (EDA)
+
+The analysis included:
+
+- Descriptive statistics.
+- Mean and median calculations.
+- Daytime and nighttime consumption comparisons.
+- Distribution analysis.
+- Correlation analysis.
+- Data visualization.
+
+## Statistical Analysis
+
+A paired-samples t-test was conducted to compare daytime and nighttime appliance consumption.
+
+Hypotheses:
+
+- H0: There is no significant difference between daytime and nighttime consumption.
+- H1: There is a significant difference between daytime and nighttime consumption.
+
+A significance level of 0.05 was used.
+
+Additional checks included the Shapiro-Wilk test, Wilcoxon signed-rank test, and bootstrap confidence interval.
+
+## Correlation Analysis
+
+The strongest observed correlations with appliance consumption were:
+
+| Variable | Correlation |
+|---|---:|
+| Hour of Day | +0.22 |
+| Lights | +0.20 |
+| Outdoor Relative Humidity | -0.15 |
+
+These results indicate relatively weak linear relationships.
+
+## Linear Regression
+
+Linear Regression was used to predict household appliance energy consumption.
+
+Target variable:
+- Appliances
+
+The dataset was divided chronologically:
+
+- Training set: 80% (15,788 observations)
+- Testing set: 20% (3,947 observations)
+
+A Mean Baseline model was used for comparison.
+
+Model evaluation:
+
+| Metric | Linear Regression | Mean Baseline |
+|---|---:|---:|
+| MAE | 49.06 | 52.69 |
+| RMSE | 84.77 | 91.05 |
+| R-squared | 0.133 | - |
+
+The Linear Regression model performed better than the mean baseline, although its predictive ability remained limited.
+
+## Key Findings
+
+1. Average daytime appliance consumption was approximately 119.7 Wh, compared with 53.7 Wh at night.
+2. Hour of day, lighting, and outdoor relative humidity showed the strongest observed correlations.
+3. Linear Regression performed better than the mean baseline.
+4. The model explained only a limited portion of appliance consumption variation.
+
+## Limitations
+
+- The dataset may not represent every household.
+- Some high consumption readings are difficult to predict.
+- Individual correlations were relatively weak.
+- Seasonal differences may affect model performance.
+- Linear Regression may not capture nonlinear relationships.
+
+## Conclusion
+
+This project demonstrates how data analytics and machine learning can be used to understand household appliance energy consumption.
+
+The analysis found a significant difference between daytime and nighttime consumption. Correlation analysis identified several associated variables, while Linear Regression provided modest improvement over a simple mean baseline.
 
 ## Files
-- energydata_complete.csv: original data
-- energydata_clean.csv: cleaned data
-- cleaning.ipynb: data cleaning and exploration
 
-## Summary of cleaning decisions
-- Converted the 'date' from text to datetime.
-- Created 'hour' and 'day_night' (Day = 6 am to 10 pm, Night = 10 pm to 6 am).
-- Dropped 'rv1' and 'rv2' (those random columns with no real meaning)
-- No missing Values or duplicate rows were found, so nothing was removed.
-- Kept all the outliers (2,138 readings above 175Wh, 10.8%) because they look like real high-use events.
-
-## What This Project Is
-We study what is linked to electricity use by household appliances in one low-energy house. The data has a reading every 10 minutes, with appliance energy use (Wh), lighting use, temperature and humidity in nine indoor locations, and outdoor weather. Our questions:
-
-1. Does appliance energy use differ between daytime and night-time?
-2. Which conditions (indoor temperature, indoor humidity, outdoor weather, time of day) are most linked to higher appliance energy use?
-3. Can we predict appliance energy use from these conditions, and how much better is it than guessing the average?
-
-**Dataset:** Appliances Energy Prediction, UCI Machine Learning Repository. 19,735 rows and 29 columns, 11 Jan to 27 May 2016. One row is one 10-minute reading.
-Candanedo, L. (2017). *Appliances Energy Prediction* [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5VC8G
-
-## Repository contents
-
-```
-.
-├── README.md
-├── requirements.txt
-├── energydata_complete.csv   # original (raw) dataset from UCI
-├── energydata_clean.csv      # cleaned dataset, created by cleaning.ipynb
-└── cleaning.ipynb            # look at, clean and explore the data
-```
-
-## Set up the environment
-
-You need Python 3.10 or newer.
-
-```
-bash
-git clone [repository URL]
-cd [repository folder]
-
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-
-pip install -r requirements.txt
-```
-
-`requirements.txt` contains:
-
-```
-pandas
-numpy
-matplotlib
-seaborn
-jupyter
-```
+- analysis_final (2)(2).ipynb - Main analysis notebook.
+- energydata_clean.csv - Cleaned dataset.
 
 
-## Run everything from raw data to results
-
-1. Make sure `energydata_complete.csv` is in the same folder as `cleaning.ipynb`.
-2. Start Jupyter: `jupyter notebook`
-3. Open `cleaning.ipynb` and choose **Kernel → Restart & Run All**.
-
-The notebook:
-
-- loads the raw data and checks size, column types, missing values and duplicates (none of the last two were found);
-- converts `date` to a datetime and creates `hour` and `day_night` (Day = 6:00 am to 9:59 pm);
-- drops `rv1` and `rv2` (random-number columns with no real meaning);
-- finds outliers with the 1.5 × IQR rule and keeps them (2,138 readings above 175 Wh, 10.8%);
-- saves the result as `energydata_clean.csv`;
-- draws the exploration charts: appliance use histogram, day vs night boxplot, average use by hour, and a correlation heatmap.
